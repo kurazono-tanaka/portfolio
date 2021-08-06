@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import PortfolioTop from '@/components/PortfolioTop'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
+import Completion from '@/components/completion'
 import Home from '@/components/home'
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -30,6 +31,11 @@ let router = new Router({
       component: Signin
     },
     {
+      path: '/completion',
+      name: 'Completion',
+      component: Completion
+    },
+    {
       path: '/home',
       name: 'Home',
       component: Home,
@@ -41,11 +47,15 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   console.log('toの中身')
   console.log(to)
+  console.log('fromの中身')
+  console.log(from)
+  console.log('from.nameの中身')
+  console.log(from.name)
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   console.log('requiresAuthの中身')
   console.log(requiresAuth)
   // let currentUser = firebase.auth().currentUser
-  if (requiresAuth) {
+  if (requiresAuth && from.name !== 'Completion') {
     // このルートはログインされているかどうか認証が必要です。
     // もしされていないならば、ログインページにリダイレクトします。
     firebase.auth().onAuthStateChanged((user) => {
