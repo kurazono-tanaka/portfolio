@@ -13,6 +13,11 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import router from '@/router'
+
 export default {
   name: 'home',
   data () {
@@ -33,6 +38,18 @@ export default {
     signOut () {
       this.$store.dispatch('signOut')
     }
+  },
+  mounted () {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log('user.emailVerified')
+      console.log(user.emailVerified)
+      if (user.emailVerified) {
+        console.log('メール認証済み')
+      } else {
+        console.log('メール認証未実施')
+        router.push('/signin')
+      }
+    });
   }
 }
 

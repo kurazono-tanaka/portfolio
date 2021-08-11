@@ -48,7 +48,7 @@ const actions = {
           console.log(username)
           //メール認証
           const actionCodeSettings = {
-            url: "http://" + location.host + "/completion",
+            url: "http://" + location.host + "/signin",
             handleCodeInApp: true
           }
           firebase.auth().languageCode = "ja"
@@ -82,21 +82,11 @@ const actions = {
   signIn ({commit}, {mailaddress, password}) {
     firebase.auth().signInWithEmailAndPassword(mailaddress, password).then(user => {
       const userObject = user.user
-      console.log('userObject.emailVerifiedの中身')
-      console.log(userObject.emailVerified)
-      if (!userObject.emailVerified) {
-        //メアド確認終わってない
-        console.log(`メアド確認終わってないからログインできない`)
-      } else {
-        //メアド確認終わってる
-        console.log(`メアド確認終わってる`)
-        //ログイン処理
-        console.log(userObject.displayName)
-        commit('setUserName', userObject.displayName)
-        commit('setMailAddress', mailaddress)
-        commit('setPassword', password)
-        router.push('/home')
-      }
+      console.log(userObject.displayName)
+      commit('setUserName', userObject.displayName)
+      commit('setMailAddress', mailaddress)
+      commit('setPassword', password)
+      router.push('/home')
     }).catch(error => {
       console.log(`エラー発生：${error}`)
     })
