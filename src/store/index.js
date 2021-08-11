@@ -52,15 +52,23 @@ const actions = {
             handleCodeInApp: true
           }
           firebase.auth().languageCode = "ja"
-          firebase.auth().sendSignInLinkToEmail(mailaddress, actionCodeSettings).then(() => {
-            window.localStorage.setItem('emailForSignIn', mailaddress)
+          firebase.auth().currentUser.sendEmailVerification(actionCodeSettings).then(() => {
             commit('setUserName', username)
             commit('setMailAddress', mailaddress)
             commit('setPassword', password)
             console.log(`メールの送信に成功しました。`)
           }).catch((error) => {
-            console.log(`sendSignInLinkToEmailでエラー発生：${error}`)
+            console.log(`sendEmailVerificationでエラー発生：${error}`)
           })
+          // firebase.auth().sendSignInLinkToEmail(mailaddress, actionCodeSettings).then(() => {
+          //   window.localStorage.setItem('emailForSignIn', mailaddress)
+          //   commit('setUserName', username)
+          //   commit('setMailAddress', mailaddress)
+          //   commit('setPassword', password)
+          //   console.log(`メールの送信に成功しました。`)
+          // }).catch((error) => {
+          //   console.log(`sendSignInLinkToEmailでエラー発生：${error}`)
+          // })
         }).catch(error => {
           console.log(`currentUser.updateProfileでエラー発生：${error}`)
         })
@@ -74,11 +82,21 @@ const actions = {
   signIn ({commit}, {mailaddress, password}) {
     firebase.auth().signInWithEmailAndPassword(mailaddress, password).then(user => {
       const userObject = user.user
-      console.log(userObject.displayName)
-      commit('setUserName', userObject.displayName)
-      commit('setMailAddress', mailaddress)
-      commit('setPassword', password)
-      router.push('/home')
+      console.log('userObject.emailVerifiedの中身')
+      console.log(userObject.emailVerified)
+      if (!userObject.emailVerified) {
+        //メアド確認終わってない
+        console.log(`メアド確認終わってないからログインできない`)
+      } else {
+        //メアド確認終わってる
+        console.log(`メアド確認終わってる`)
+        //ログイン処理
+        console.log(userObject.displayName)
+        commit('setUserName', userObject.displayName)
+        commit('setMailAddress', mailaddress)
+        commit('setPassword', password)
+        router.push('/home')
+      }
     }).catch(error => {
       console.log(`エラー発生：${error}`)
     })
