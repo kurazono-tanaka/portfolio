@@ -48,7 +48,7 @@ const actions = {
           console.log(username)
           //メール認証
           const actionCodeSettings = {
-            url: "http://" + location.host + "/signin",
+            url: "http://" + location.host + "/home",
             handleCodeInApp: true
           }
           firebase.auth().languageCode = "ja"
