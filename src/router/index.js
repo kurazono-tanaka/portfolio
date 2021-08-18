@@ -3,8 +3,13 @@ import Router from 'vue-router'
 import PortfolioTop from '@/components/PortfolioTop'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
-import Completion from '@/components/completion'
-import Home from '@/components/home'
+import Home from '@/components/Home'
+import Register from '@/components/Register'
+import Verification from '@/components/Verification'
+import UpdateInformation from '@/components/UpdateInformation'
+import Search from '@/components/Search'
+import Result from '@/components/Result'
+import Detail from '@/components/Detail'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
@@ -31,14 +36,45 @@ let router = new Router({
       component: Signin
     },
     {
-      path: '/completion',
-      name: 'Completion',
-      component: Completion
-    },
-    {
       path: '/home',
       name: 'Home',
       component: Home,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/verification',
+      name: 'Verification',
+      component: Verification,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/updateInformation',
+      name: 'UpdateInformation',
+      component: UpdateInformation,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/result',
+      name: 'Result',
+      component: Result,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: Detail,
       meta: { requiresAuth: true }
     }
   ]
@@ -47,15 +83,11 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   console.log('toの中身')
   console.log(to)
-  console.log('fromの中身')
-  console.log(from)
-  console.log('from.nameの中身')
-  console.log(from.name)
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   console.log('requiresAuthの中身')
   console.log(requiresAuth)
   // let currentUser = firebase.auth().currentUser
-  if (requiresAuth && from.name !== 'Completion') {
+  if (requiresAuth) {
     // このルートはログインされているかどうか認証が必要です。
     // もしされていないならば、ログインページにリダイレクトします。
     firebase.auth().onAuthStateChanged((user) => {
