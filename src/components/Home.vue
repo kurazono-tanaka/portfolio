@@ -1,12 +1,33 @@
 <template>
-  <div class="home">
-    <main>
-      <h1>Home</h1>
-      <button class="btn-style2" @click="signOut">ログアウト</button>
-      <p><router-link to="/register" class="link-style">登録へ</router-link></p>
-      <p><router-link to="/search" class="link-style">検索へ</router-link></p>
+  <div id="home">
+    <header class="header">
+      <section class="he-menu">
+        <h1 class="font-menu-h1">共通点検索サービス</h1>
+        <button class="he-btn" @click="signOut">ログアウト</button>
+      </section>
+    </header>
+    <main class="main">
+      <div  class="ma-content">
+        <h2 class="ma-h2">同僚との共通点をみつけよう</h2>
+        <p class="ma-p">
+          プロジェクトメンバーともっと
+          親交を深めたいけど、話すきっかけがない。
+          そんなとき、
+          簡単に共通点を検索できるサービスです。
+        </p>
+        <p class="ma-p-768">
+          プロジェクトメンバーともっと
+          親交を深めたいけど、話すきっかけがない。
+          そんなとき、簡単に共通点を検索できるサービスです。
+        </p>
+        <p class="ma-btn-p">まずは自身の情報を登録しましょう。</p>
+        <button class="ma-btn" @click="goRegister">登録へ</button>
+        <p class="ma-btn-p">共通点を検索してみましょう。</p>
+        <button class="ma-btn" @click="goSearch">検索へ</button>
+      </div>
+      <img src="../../img/portfolio.png" class="ma-img">
     </main>
-    <footer>
+    <footer class="footer">
       <p>Copyright ©2019 ○○Inc. All rights reserved</p>
     </footer>
   </div>
@@ -36,6 +57,12 @@ export default {
   methods: {
     signOut () {
       this.$store.dispatch('signOut')
+    },
+    goRegister () {
+      this.$router.push('/register')
+    },
+    goSearch () {
+      this.$router.push('/search')
     }
   },
   mounted () {
@@ -64,26 +91,163 @@ export default {
         console.log('ログアウトのリロード時')
         console.log('logout')
       }
-      // if (user.emailVerified) {
-      //   console.log('メール認証済み')
-      // } else {
-      //   console.log('メール認証未実施')
-      //   router.push('/signin')
-      // }
     })
-    // this.username = this.$store.getters.getUserName
-    // if(this.username === '') {
-    //   //メールリンクから遷移した場合
-    //   firebase.auth().onAuthStateChanged(user => {
-    //     if (user) {
-    //       console.log('login')
-    //       this.$store.commit('setUserName', user.displayName);
-    //     } else {
-    //       console.log('logout')
-    //     }
-    //   })
-    // }
   }
 }
 
 </script>
+
+<style>
+#home {
+  height: 100%;
+  min-height: 850px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.font-menu-h1 {
+  font-size: 16px;
+}
+
+.he-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 58px;
+  background-color: #AED3E6;
+  padding-right: 40px;
+  padding-left: 40px;
+  opacity: 1;
+  position: static;
+}
+
+.he-btn {
+  font-size: 16px;
+}
+
+.main {
+  width: 375px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 45px;
+}
+
+.ma-h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ma-p {
+  font-size: 16px;
+  line-height: 36px;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.ma-p-768 {
+  display: none;
+}
+
+.ma-btn-p {
+  font-size: 16px;
+  margin-top: 37px;
+}
+
+.ma-btn {
+  margin-top: 12px;
+  height: 53px;
+  width: 261px;
+  font-weight: bold;
+  border-radius: 50px;
+  background-color: #004BB1;
+  color: #FFFFFF;
+  line-height: 53px;
+}
+
+.ma-img {
+  display: block;
+  width: 282px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.footer {
+  width: 100%;
+  height: 27px;
+  line-height: 27px;
+  background-color: #DDDDDD;
+  border: 1px solid #707070;
+  text-align: center;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .main {
+    width: 768px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 45px;
+  }
+
+  .ma-p {
+    display: none;
+  }
+
+  .ma-p-768 {
+    display: block;
+    font-size: 16px;
+    line-height: 36px;
+    text-align: center;
+    white-space: pre-line;
+  }
+}
+
+@media (min-width: 1280px) {
+  .he-menu {
+    height: 100px;
+  }
+
+  .he-btn {
+    font-size: 25px;
+  }
+
+  .font-menu-h1 {
+    font-size: 38px;
+  }
+
+  .main {
+    width: 1280px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding:  79px 134px 111px 134px;
+  }
+
+  .ma-h2 {
+    font-size: 35px;
+  }
+
+  .ma-p-768 {
+    display: block;
+    font-size: 20px;
+    line-height: 36px;
+    text-align: left;
+    white-space: pre-line;
+  }
+
+  .ma-img {
+    display: block;
+    width: 420px;
+    margin: 0;
+    margin-top: 50px;
+  }
+
+  .ma-btn-p {
+    font-size: 20px;
+    margin-top: 45px;
+  }
+}
+</style>
