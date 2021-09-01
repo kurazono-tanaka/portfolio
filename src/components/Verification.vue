@@ -92,7 +92,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 #verification {
   height: 100%;
   min-height: 1300px;

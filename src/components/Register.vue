@@ -179,7 +179,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 #register {
   height: 100%;
   min-height: 1300px;

@@ -310,8 +310,14 @@ const actions = {
     await firebase.firestore().collection('users').get().then((query) => {
       console.log('usersテーブルの参照に成功しました')
       const buff = []
+      console.log('query')
+      console.log(query)
       query.forEach((doc) => {
+        console.log('doc')
+        console.log(doc)
         const data = doc.data()
+        console.log('data')
+        console.log(data)
         buff.push([data.name, data.email,data.belongs, data.country, data.city, data.language, data.hobby, data.message])
       })
       console.log('buff')
@@ -352,7 +358,21 @@ const actions = {
         console.log(doc)
       })
       //マッチユーザリスト作成
-      const matchUserList = buff.filter(doc => doc[8].length > 0)
+      const matchUserList = buff.filter(doc => {
+        console.log('buff.filter')
+        console.log('doc')
+        console.log(doc)
+        console.log('doc[8]')
+        console.log(doc[8])
+        if(doc[8].length > 0) {
+          console.log('true');
+          return true;
+        } else {
+          console.log('false');
+          return false;
+        }
+      })
+      // const matchUserList = buff.filter(doc => doc[8].length > 0)
       console.log('matchUserList')
       console.log(matchUserList)
       commit('setMatchUserList', matchUserList)

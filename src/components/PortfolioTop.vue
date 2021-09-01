@@ -142,7 +142,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "../css/destyle.css";
 #portfolio-top {
   position: relative;
