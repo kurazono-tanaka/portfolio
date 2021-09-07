@@ -11,85 +11,93 @@
       <ul class="ma-ul">
         <li class="ma-li">
           <p class="ma-label">お名前</p>
-          <p class="ma-text">{{username}}</p>
+          <p class="ma-text">{{ username }}</p>
         </li>
         <li class="ma-li">
           <p class="ma-label">所属</p>
-          <p class="ma-text">{{belongs}}</p>
+          <p class="ma-text">{{ belongs }}</p>
         </li>
         <li class="ma-li">
           <p class="ma-label">出身（国）</p>
-          <p class="ma-text">{{country}}</p>
+          <p class="ma-text">{{ country }}</p>
         </li>
         <li class="ma-li">
           <p class="ma-label">出身（都市）</p>
-          <p class="ma-text">{{city}}</p>
+          <p class="ma-text">{{ city }}</p>
         </li>
         <li class="ma-li">
           <p class="ma-label">経験のある開発言語</p>
           <ul class="ma-text">
-            <li v-for="(item, index) in language" :key="index">{{item}}</li>
+            <li v-for="(item, index) in language" :key="index">{{ item }}</li>
           </ul>
         </li>
         <li class="ma-li">
           <p class="ma-label">趣味</p>
           <ul class="ma-text">
-            <li v-for="(item, index) in hobby" :key="index">{{item}}</li>
+            <li v-for="(item, index) in hobby" :key="index">{{ item }}</li>
           </ul>
         </li>
         <li class="ma-li">
           <p class="ma-label">メンバーに対して一言</p>
-          <p class="ma-message">{{message}}</p>
+          <p class="ma-message">{{ message }}</p>
         </li>
       </ul>
       <div class="ma-btn-div">
-        <button class="ma-btn" @click="register">ユーザ情報登録画面に戻る</button>
+        <button class="ma-btn" @click="register">
+          ユーザ情報登録画面に戻る
+        </button>
         <button class="ma-btn" @click="updateInformation">登録する</button>
       </div>
     </main>
     <footer class="footer">
-      <p>Copyright ©2019 ○○Inc. All rights reserved</p>
+      <p>©2021 KurazonoAzusa</p>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'verification',
-  data () {
+  name: "verification",
+  data() {
     return {
-      username: '',
-      belongs: '',
-      country: '',
-      city: '',
+      username: "",
+      belongs: "",
+      country: "",
+      city: "",
       language: [],
       hobby: [],
-      message: ''
-    }
+      message: ""
+    };
   },
   methods: {
-    goHome () {
-      this.$router.push('/home')
+    goHome() {
+      this.$router.push("/home");
     },
     register() {
-      this.$router.push('/register')
+      this.$router.push("/register");
     },
     async updateInformation() {
-      await this.$store.dispatch('updateInformation', {belongs: this.belongs, country: this.country, city: this.city, language: this.language, hobby: this.hobby, message:this.message})
+      await this.$store.dispatch("updateInformation", {
+        belongs: this.belongs,
+        country: this.country,
+        city: this.city,
+        language: this.language,
+        hobby: this.hobby,
+        message: this.message
+      });
     }
   },
-   mounted () {
-    this.username = this.$store.getters.getUserName
-    this.belongs = this.$store.getters.getBelongs
-    this.country = this.$store.getters.getCountry
-    this.city = this.$store.getters.getCity
-    this.language = this.$store.getters.getLanguage
-    this.hobby = this.$store.getters.getHobby
-    this.message = this.$store.getters.getMessage
-    console.log('ユーザ情報登録確認のmounted完了')
+  mounted() {
+    this.username = this.$store.getters.getUserName;
+    this.belongs = this.$store.getters.getBelongs;
+    this.country = this.$store.getters.getCountry;
+    this.city = this.$store.getters.getCity;
+    this.language = this.$store.getters.getLanguage;
+    this.hobby = this.$store.getters.getHobby;
+    this.message = this.$store.getters.getMessage;
+    console.log("ユーザ情報登録確認のmounted完了");
   }
-}
-
+};
 </script>
 
 <style scoped>
@@ -110,7 +118,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 58px;
-  background-color: #AED3E6;
+  background-color: #aed3e6;
   padding-right: 40px;
   padding-left: 40px;
   opacity: 1;
@@ -161,7 +169,6 @@ export default {
   line-height: 35px;
 }
 
-
 .ma-checkbox-label {
   display: inline-block;
   margin-right: 17px;
@@ -183,8 +190,8 @@ export default {
   width: 261px;
   font-weight: bold;
   border-radius: 50px;
-  background-color: #004BB1;
-  color: #FFFFFF;
+  background-color: #004bb1;
+  color: #ffffff;
   line-height: 53px;
 }
 
@@ -192,7 +199,7 @@ export default {
   width: 100%;
   height: 27px;
   line-height: 27px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 1px solid #707070;
   text-align: center;
   font-size: 12px;
@@ -215,7 +222,7 @@ export default {
   }
 
   .ma-li {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: left;
@@ -244,7 +251,6 @@ export default {
 
   .ma-message {
     display: block;
-    height: 140px;
     width: 350px;
   }
 
@@ -258,7 +264,6 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
-
 }
 
 @media (min-width: 1280px) {
@@ -294,6 +299,5 @@ export default {
     height: 42px;
     line-height: 42px;
   }
-
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="signin">
+  <div id="signin">
     <header class="header">
       <section class="he-menu">
         <h1 class="font-menu-h1">共通点検索サービス</h1>
@@ -14,44 +14,61 @@
       <ul class="ma-ul">
         <li>
           <label for="mailaddress" class="ma-label">メールアドレス</label>
-          <input type="email" id="mailaddress" placeholder="E-mail" class="ma-form" v-model="mailaddress"/>
+          <input
+            type="email"
+            id="mailaddress"
+            placeholder="E-mail"
+            class="ma-form"
+            v-model="mailaddress"
+          />
         </li>
         <li>
           <label for="password" class="ma-label">パスワード</label>
-          <input type="password" id="password" placeholder="Password" class="ma-form" v-model="password"/>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            class="ma-form"
+            v-model="password"
+          />
         </li>
       </ul>
       <button class="ma-btn-signIn" @click="signIn">ログイン</button>
-      <router-link to="/signup" class="ma-link">新規登録はこちらから</router-link>
+      <router-link to="/signup" class="ma-link"
+        >新規登録はこちらから</router-link
+      >
     </main>
     <footer class="footer">
-      <p>Copyright ©2019 ○○Inc. All rights reserved</p>
+      <p>©2021 KurazonoAzusa</p>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'signin',
-  data () {
+  name: "signin",
+  data() {
     return {
-      mailaddress: '',
-      password: ''
-    }
+      mailaddress: "",
+      password: ""
+    };
   },
   methods: {
-    signIn () {
-      this.$store.dispatch('signIn', {mailaddress: this.mailaddress, password: this.password})
+    signIn() {
+      this.$store.dispatch("signIn", {
+        mailaddress: this.mailaddress,
+        password: this.password
+      });
     },
-    goTop () {
-      this.$router.push('/')
+    goTop() {
+      this.$router.push("/");
     }
   }
-}
+};
 </script>
 
 <style scoped>
-#signup {
+#signin {
   height: 100%;
   min-height: 750px;
   position: relative;
@@ -68,7 +85,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 58px;
-  background-color: #AED3E6;
+  background-color: #aed3e6;
   padding-right: 40px;
   padding-left: 40px;
   opacity: 1;
@@ -130,8 +147,8 @@ export default {
   width: 261px;
   font-weight: bold;
   border-radius: 50px;
-  background-color: #004BB1;
-  color: #FFFFFF;
+  background-color: #004bb1;
+  color: #ffffff;
   line-height: 53px;
 }
 
@@ -146,7 +163,7 @@ export default {
   width: 100%;
   height: 27px;
   line-height: 27px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 1px solid #707070;
   text-align: center;
   font-size: 12px;
@@ -163,7 +180,7 @@ export default {
     font-size: 16px;
     display: block;
   }
-  
+
   .main {
     width: 768px;
   }
@@ -180,6 +197,13 @@ export default {
 }
 
 @media (min-width: 1280px) {
+  #signin {
+    height: 100%;
+    min-height: 1200px;
+    position: relative;
+    box-sizing: border-box;
+  }
+   
   .he-menu {
     height: 100px;
   }

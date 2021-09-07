@@ -8,55 +8,76 @@
       </section>
     </header>
     <main class="main">
-      <p v-if="message">メール認証が終わっていません。メールを確認して認証を完了してください。（認証メールを再送信する。）</p>
       <div class="ma-title">
         <h2 class="ma-h2">新規登録画面</h2>
-        <p class="ma-p">メールアドレスもしくはSNSアカウントで登録</p>
+        <p class="ma-p">メールアドレスで登録</p>
       </div>
       <ul class="ma-ul">
         <li>
           <label for="mailaddress" class="ma-label">メールアドレス</label>
-          <input type="email" id="mailaddress" placeholder="E-mail" class="ma-form" v-model="mailaddress"/>
+          <input
+            type="email"
+            id="mailaddress"
+            placeholder="E-mail"
+            class="ma-form"
+            v-model="mailaddress"
+          />
         </li>
         <li>
           <label for="username" class="ma-label">ユーザー名</label>
-          <input type="text" id="username" placeholder="userName" class="ma-form" v-model="username"/>
+          <input
+            type="text"
+            id="username"
+            placeholder="userName"
+            class="ma-form"
+            v-model="username"
+          />
         </li>
         <li>
           <label for="password" class="ma-label">パスワード</label>
-          <input type="password" id="password" placeholder="Password" class="ma-form" v-model="password"/>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            class="ma-form"
+            v-model="password"
+          />
         </li>
       </ul>
       <button class="ma-btn-signUp" @click="signUp">登録する</button>
-      <router-link to="/signin" class="ma-link">すでにアカウントをお持ちの方はこちら</router-link>
+      <router-link to="/signin" class="ma-link"
+        >すでにアカウントをお持ちの方はこちら</router-link
+      >
     </main>
     <footer class="footer">
-      <p>Copyright ©2019 ○○Inc. All rights reserved</p>
+      <p>©2021 KurazonoAzusa</p>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'signup',
-  data () {
+  name: "signup",
+  data() {
     return {
-      username: '',
-      mailaddress: '',
-      password: '',
-      message: false
-    }
+      username: "",
+      mailaddress: "",
+      password: ""
+    };
   },
   methods: {
-    signUp () {
-      this.message = true
-      this.$store.dispatch('signUp', {username: this.username, mailaddress: this.mailaddress, password: this.password})
+    signUp() {
+      this.$store.dispatch("signUp", {
+        username: this.username,
+        mailaddress: this.mailaddress,
+        password: this.password
+      });
     },
-    goTop () {
-      this.$router.push('/')
+    goTop() {
+      this.$router.push("/");
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -77,7 +98,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 58px;
-  background-color: #AED3E6;
+  background-color: #aed3e6;
   padding-right: 40px;
   padding-left: 40px;
   opacity: 1;
@@ -144,8 +165,8 @@ export default {
   width: 261px;
   font-weight: bold;
   border-radius: 50px;
-  background-color: #004BB1;
-  color: #FFFFFF;
+  background-color: #004bb1;
+  color: #ffffff;
   line-height: 53px;
 }
 
@@ -160,7 +181,7 @@ export default {
   width: 100%;
   height: 27px;
   line-height: 27px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 1px solid #707070;
   text-align: center;
   font-size: 12px;
@@ -177,7 +198,7 @@ export default {
     font-size: 16px;
     display: block;
   }
-  
+
   .main {
     width: 768px;
   }
@@ -194,9 +215,13 @@ export default {
 }
 
 @media (min-width: 1280px) {
+  #signup {
+    min-height: 1200px;
+  }
+
   .he-menu {
     height: 100px;
-    background-color: #AED3E6;
+    background-color: #aed3e6;
   }
 
   .font-menu-h1 {

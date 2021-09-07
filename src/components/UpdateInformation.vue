@@ -8,43 +8,40 @@
     </header>
     <main class="main">
       <h2 class="ma-h2">ユーザ情報登録完了</h2>
-      <p class="ma-p">
-        {{username}}様の
-        ユーザ情報登録が完了しました。
-      </p>
-      <button class="ma-btn" @click="goHome">ホーム画面へ</button>    
+      <p class="ma-p">{{ username }}様の ユーザ情報登録が完了しました。</p>
+      <button class="ma-btn" @click="goHome">ホーム画面へ</button>
     </main>
     <footer class="footer">
-      <p>Copyright ©2019 ○○Inc. All rights reserved</p>
+      <p>©2021 KurazonoAzusa</p>
     </footer>
   </div>
 </template>
 
 <script>
-import 'firebase/auth'
+import "firebase/auth";
 
 export default {
-  name: 'updateInformation',
-  data () {
+  name: "updateInformation",
+  data() {
     return {
-      username: '',
-    }
+      username: ""
+    };
   },
   methods: {
-    goHome () {
-      this.$store.commit('setBelongs', '');
-      this.$store.commit('setCountry', '');
-      this.$store.commit('setCity', '');
-      this.$store.commit('setLanguage', '');
-      this.$store.commit('setHobby', '');
-      this.$store.commit('setMessage', '');
-      this.$router.push('/home')
+    goHome() {
+      this.$store.commit("setBelongs", "");
+      this.$store.commit("setCountry", "");
+      this.$store.commit("setCity", "");
+      this.$store.commit("setLanguage", "");
+      this.$store.commit("setHobby", "");
+      this.$store.commit("setMessage", "");
+      this.$router.push("/home");
     }
   },
-  mounted () {
-    this.username = this.$store.getters.getUserName
+  mounted() {
+    this.username = this.$store.getters.getUserName;
   }
-}
+};
 </script>
 
 <style scoped>
@@ -65,7 +62,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 58px;
-  background-color: #AED3E6;
+  background-color: #aed3e6;
   padding-right: 40px;
   padding-left: 40px;
   opacity: 1;
@@ -102,8 +99,8 @@ export default {
   width: 261px;
   font-weight: bold;
   border-radius: 50px;
-  background-color: #004BB1;
-  color: #FFFFFF;
+  background-color: #004bb1;
+  color: #ffffff;
   line-height: 53px;
   margin-top: 45px;
 }
@@ -112,7 +109,7 @@ export default {
   width: 100%;
   height: 27px;
   line-height: 27px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 1px solid #707070;
   text-align: center;
   font-size: 12px;

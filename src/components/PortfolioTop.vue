@@ -8,13 +8,19 @@
           <nav class="he-menu-list">
             <ul class="he-menu-list-ul">
               <li>
-                <a @click="closeModal" href="#ma-summary" class="font-menu-a">SUMMARY</a>
+                <a @click="closeModal" href="#ma-summary" class="font-menu-a"
+                  >SUMMARY</a
+                >
               </li>
               <li>
-                <a @click="closeModal" href="#ma-about" class="font-menu-a">ABOUT</a>
+                <a @click="closeModal" href="#ma-about" class="font-menu-a"
+                  >ABOUT</a
+                >
               </li>
               <li>
-                <a @click="closeModal" href="#ma-service" class="font-menu-a">共通点検索サービス</a>
+                <a @click="closeModal" href="#ma-service" class="font-menu-a"
+                  >共通点検索サービス</a
+                >
               </li>
             </ul>
           </nav>
@@ -34,20 +40,26 @@
           <nav class="he-overlay-list">
             <ul class="he-overlay-list-ul">
               <li>
-                <a @click="closeModal" href="#ma-summary" class="font-menu-h1">SUMMARY</a>
+                <a @click="closeModal" href="#ma-summary" class="font-menu-h1"
+                  >SUMMARY</a
+                >
               </li>
               <li>
-                <a @click="closeModal" href="#ma-about" class="font-menu-h1">ABOUT</a>
+                <a @click="closeModal" href="#ma-about" class="font-menu-h1"
+                  >ABOUT</a
+                >
               </li>
               <li>
-                <a @click="closeModal" href="#ma-service" class="font-menu-h1">共通点検索サービス</a>
+                <a @click="closeModal" href="#ma-service" class="font-menu-h1"
+                  >共通点検索サービス</a
+                >
               </li>
             </ul>
           </nav>
         </section>
       </transition>
       <section class="he-img">
-        <img src="../../img/home1.png" class="he-img-back">
+        <img src="../../img/home1.png" class="he-img-back" />
         <p class="he-img-p">
           共通点検索サービスは
           メンバー情報の検索ができます
@@ -59,7 +71,7 @@
         <h2 class="ma-summary-h2" date-subtitle="SUMMARY">概要</h2>
         <div class="ma-summary-div">
           <section class="ma-summary-concept">
-            <img src="../../img/home2.png" class="ma-summary-img">
+            <img src="../../img/home2.png" class="ma-summary-img" />
             <h3 class="ma-summary-h3">サービスのコンセプト</h3>
             <p class="ma-summary-p">
               懇親会が開きにくい昨今、
@@ -69,7 +81,7 @@
             </p>
           </section>
           <section class="ma-summary-overview">
-            <img src="../../img/home3.png" class="ma-summary-img">
+            <img src="../../img/home3.png" class="ma-summary-img" />
             <h3 class="ma-summary-h3">サービスの概要</h3>
             <p class="ma-summary-p">
               プロジェクトメンバーの
@@ -79,7 +91,7 @@
             </p>
           </section>
           <section class="ma-summary-howto">
-            <img src="../../img/home4.png" class="ma-summary-img">
+            <img src="../../img/home4.png" class="ma-summary-img" />
             <h3 class="ma-summary-h3">使い方</h3>
             <p class="ma-summary-p">
               自分の情報（経歴・趣味など）
@@ -93,11 +105,11 @@
       <article id="ma-about">
         <h2 class="ma-about-h2" date-subtitle="ABOUT">自己紹介</h2>
         <div class="ma-about-div">
-          <img src="../../img/about.png" class="ma-about-img">
+          <img src="../../img/about.png" class="ma-about-img" />
           <ul class="ma-about-ul">
             <li>名前：Kurazono Azusa</li>
             <li>出身：鹿児島県（現在は東京都に在住）</li>
-            <li>学歴：鹿児島大学大学院理工学研究科</li>
+            <li>学歴：鹿児島大学大学院理工学研究科情報生体システム工学専攻</li>
             <li>
               職歴：大学院卒業後、東京の会社に
               就職し、５年間勤務。
@@ -108,42 +120,45 @@
         </div>
       </article>
       <article id="ma-service">
-        <h2 class="ma-service-h2" date-subtitle="SERVICE">共通点検索サービス</h2>
-        <img src="../../img/portfolio.png" class="ma-service-img">
-        <button @click="goSignup" class="ma-service-button button-style">共通点検索サービスへ</button>
+        <h2 class="ma-service-h2" date-subtitle="SERVICE">
+          共通点検索サービス
+        </h2>
+        <img src="../../img/portfolio.png" class="ma-service-img" />
+        <button @click="goSignup" class="ma-service-button button-style">
+          共通点検索サービスへ
+        </button>
       </article>
     </main>
     <footer class="footer">
-      <p>Copyright ©2019 ○○Inc. All rights reserved</p>
+      <p>©2021 KurazonoAzusa</p>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'portfolio-top',
-  data () {
+  name: "portfolio-top",
+  data() {
     return {
-      showModal: false,
-    }
+      showModal: false
+    };
   },
   methods: {
-    openModal () {
+    openModal() {
       // モーダルウィンドウ表示
-      this.showModal = true
+      this.showModal = true;
     },
-    closeModal () {
-      this.showModal = false
+    closeModal() {
+      this.showModal = false;
     },
-    goSignup () {
-      this.$router.push('/signup')
+    goSignup() {
+      this.$router.push("/signup");
     }
   }
-}
+};
 </script>
 
 <style scoped>
-@import "../css/destyle.css";
 #portfolio-top {
   position: relative;
 }
@@ -162,9 +177,9 @@ export default {
   align-items: center;
   width: 100%;
   height: 58px;
-  background-color: #AEE6C4;
+  background-color: #aee6c4;
   position: fixed;
-  top:0;
+  top: 0;
   padding-right: 40px;
   padding-left: 40px;
   z-index: 10;
@@ -172,13 +187,13 @@ export default {
 }
 
 .he-menu-list {
-  display: none
+  display: none;
 }
 
 .he-overlay-list-ul {
   list-style: none;
   margin: 0 auto;
-  padding:0;
+  padding: 0;
 }
 
 .he-overlay {
@@ -188,32 +203,36 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  background-color:#AEE6C4;
+  background-color: #aee6c4;
   opacity: 0.86;
 }
 
-.he-menu-tra-enter, .he-menu-tra-leave-to {
+.he-menu-tra-enter,
+.he-menu-tra-leave-to {
   opacity: 0;
 }
 
-.he-menu-tra-enter-to, .he-menu-tra-leave {
+.he-menu-tra-enter-to,
+.he-menu-tra-leave {
   opacity: 0.86;
 }
 
-.he-menu-tra-enter-active, 
+.he-menu-tra-enter-active,
 .he-menu-tra-leave-active {
   transition: all 0.3s ease;
 }
 
-.he-overlay-tra-enter, .he-overlay-tra-leave-to {
+.he-overlay-tra-enter,
+.he-overlay-tra-leave-to {
   transform: translateX(320px);
 }
 
-.he-overlay-tra-enter-to, .he-overlay-tra-leave {
+.he-overlay-tra-enter-to,
+.he-overlay-tra-leave {
   transform: translateX(0);
 }
 
-.he-overlay-tra-enter-active, 
+.he-overlay-tra-enter-active,
 .he-overlay-tra-leave-active {
   transition: all 0.3s ease;
 }
@@ -284,9 +303,9 @@ export default {
   content: attr(date-subtitle);
   font-size: 12px;
   font-weight: normal;
-  position:absolute;
+  position: absolute;
   top: -15px;
-  left:0;
+  left: 0;
   right: 0;
   margin: auto;
 }
@@ -295,7 +314,7 @@ export default {
   display: block;
   height: 200px;
   margin: 0 auto;
-  margin-top:50px;
+  margin-top: 50px;
 }
 
 .ma-summary-h3 {
@@ -327,9 +346,9 @@ export default {
   content: attr(date-subtitle);
   font-size: 12px;
   font-weight: normal;
-  position:absolute;
+  position: absolute;
   top: -15px;
-  left:0;
+  left: 0;
   right: 0;
   margin: auto;
 }
@@ -351,7 +370,7 @@ export default {
 .ma-about-ul {
   margin: 0 auto;
   margin-top: 25px;
-  width: 340px;
+  width: 300px;
   list-style: square;
   text-align: left;
   line-height: 40px;
@@ -373,9 +392,9 @@ export default {
   content: attr(date-subtitle);
   font-size: 12px;
   font-weight: normal;
-  position:absolute;
+  position: absolute;
   top: -15px;
-  left:0;
+  left: 0;
   right: 0;
   margin: auto;
 }
@@ -385,8 +404,8 @@ export default {
   width: 261px;
   font-weight: bold;
   border-radius: 50px;
-  border: 2px solid #CDD6DD;
-  color: #004BB1;
+  border: 2px solid #cdd6dd;
+  color: #004bb1;
   line-height: 53px;
 }
 
@@ -399,7 +418,7 @@ export default {
   width: 100%;
   height: 27px;
   line-height: 27px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 1px solid #707070;
   text-align: center;
   font-size: 12px;
@@ -416,11 +435,13 @@ export default {
     top: 0;
   }
 
-  .he-overlay-tra-enter, .he-overlay-tra-leave-to {
+  .he-overlay-tra-enter,
+  .he-overlay-tra-leave-to {
     transform: translateY(-100%);
   }
 
-  .he-overlay-tra-enter-to, .he-overlay-tra-leave {
+  .he-overlay-tra-enter-to,
+  .he-overlay-tra-leave {
     transform: translateX(0);
   }
 
@@ -472,7 +493,6 @@ export default {
     align-items: center;
   }
 }
-
 
 @media (min-width: 1280px) {
   .he-menu-icon {
@@ -583,6 +603,4 @@ export default {
     padding-top: 140px;
   }
 }
-
 </style>
-

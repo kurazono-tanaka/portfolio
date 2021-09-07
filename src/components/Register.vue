@@ -6,17 +6,29 @@
         <button class="he-btn" @click="goHome">ホーム画面へ</button>
       </section>
     </header>
+    <div class="error">
+      <p v-if="allFlag" class="er-p">
+        選択されていない項目があります。選択し直してください。
+      </p>
+      <p v-if="languageFlag1" class="er-p">
+        経験のある開発言語が４つ以上選択されています。選択し直してください。
+      </p>
+      <p v-if="languageFlag2" class="er-p">
+        経験のある開発言語が選択されていません。選択し直してください。
+      </p>
+      <p v-if="hobbyFlag1" class="er-p">
+        趣味が４つ以上選択されています。選択し直してください。
+      </p>
+      <p v-if="hobbyFlag2" class="er-p">
+        趣味が選択されていません。選択し直してください。
+      </p>
+    </div>
     <main class="main">
-      <h2  class="ma-h2">ユーザ情報登録</h2>
-      <!-- <p v-if="allFlag">選択されていない項目があります。選択し直してください。</p> -->
-      <p v-if="languageFlag1">経験のある開発言語が４つ以上選択されています。選択し直してください。</p>
-      <p v-if="languageFlag2">経験のある開発言語が選択されていません。選択し直してください。</p>
-      <p v-if="hobbyFlag1">趣味が４つ以上選択されています。選択し直してください。</p>
-      <p v-if="hobbyFlag2">趣味が選択されていません。選択し直してください。</p>
+      <h2 class="ma-h2">ユーザ情報登録</h2>
       <ul class="ma-ul">
         <li class="ma-li">
           <p class="ma-label">お名前</p>
-          <p class="ma-text">{{username}}</p>
+          <p class="ma-text">{{ username }}</p>
         </li>
         <li class="ma-li">
           <label for="belongs" class="ma-label">所属</label>
@@ -32,11 +44,16 @@
         <li class="ma-li">
           <label for="country" class="ma-label">出身（国）</label>
           <div class="ma-form">
-            <select id="country" v-model="country" @change="calculation" class="ma-select">
-                <option value="" disabled>選択して下さい</option>
-                <option v-for="(item, index) in countryList" :key="index">{{
-                  item
-                }}</option>
+            <select
+              id="country"
+              v-model="country"
+              @change="calculation"
+              class="ma-select"
+            >
+              <option value="" disabled>選択して下さい</option>
+              <option v-for="(item, index) in countryList" :key="index">{{
+                item
+              }}</option>
             </select>
           </div>
         </li>
@@ -44,10 +61,10 @@
           <label for="city" class="ma-label">出身（都市）</label>
           <div class="ma-form">
             <select id="city" v-model="city" class="ma-select">
-                <option value="" disabled>選択して下さい</option>
-                <option v-for="(item, index) in cityList" :key="index">{{
-                  item
-                }}</option>
+              <option value="" disabled>選択して下さい</option>
+              <option v-for="(item, index) in cityList" :key="index">{{
+                item
+              }}</option>
             </select>
           </div>
         </li>
@@ -57,7 +74,14 @@
             <p>※３つまで選択可</p>
           </div>
           <div class="ma-checkbox">
-            <label v-for="item in languageList" :key="item[0]" class="ma-checkbox-label"><input type="checkbox" :value="item[1]" v-model="language">{{item[1]}}</label>
+            <label
+              v-for="item in languageList"
+              :key="item[0]"
+              class="ma-checkbox-label"
+              ><input type="checkbox" :value="item[1]" v-model="language" />{{
+                item[1]
+              }}</label
+            >
           </div>
         </li>
         <li class="ma-li">
@@ -66,36 +90,48 @@
             <p>※３つまで選択可</p>
           </div>
           <div class="ma-checkbox">
-            <label v-for="item in hobbyList" :key="item[0]" class="ma-checkbox-label"><input type="checkbox" :value="item[1]" v-model="hobby">{{item[1]}}</label>
+            <label
+              v-for="item in hobbyList"
+              :key="item[0]"
+              class="ma-checkbox-label"
+              ><input type="checkbox" :value="item[1]" v-model="hobby" />{{
+                item[1]
+              }}</label
+            >
           </div>
         </li>
         <li class="ma-li">
           <label for="message" class="ma-label">メンバーに対して一言</label>
-          <textarea id="message" v-model="message" class="ma-message" placeholder="入力して下さい"></textarea>
+          <textarea
+            id="message"
+            v-model="message"
+            class="ma-message"
+            placeholder="入力して下さい"
+          ></textarea>
         </li>
       </ul>
       <button class="ma-btn" @click="verification">確認する</button>
     </main>
     <footer class="footer">
-      <p>Copyright ©2019 ○○Inc. All rights reserved</p>
+      <p>©2021 KurazonoAzusa</p>
     </footer>
   </div>
 </template>
 
 <script>
-import definition from '@/helpers/definition';
+import definition from "@/helpers/definition";
 
 export default {
-  name: 'register',
-  data () {
+  name: "register",
+  data() {
     return {
-      username: '',
-      belongs: '',
-      belongsList: ['技術課','金融課','住宅課','WEBデザイン課'],
-      country: '',
-      countryList: ['日本','アメリカ','中国','インド','その他'],
-      city: '',
-      cityList: ['東京','京都'],
+      username: "",
+      belongs: "",
+      belongsList: ["技術課", "金融課", "住宅課", "WEBデザイン課"],
+      country: "",
+      countryList: ["日本", "アメリカ", "中国", "インド", "その他"],
+      city: "",
+      cityList: ["東京", "京都"],
       language: [],
       languageList: [],
       languageFlag1: false,
@@ -104,79 +140,93 @@ export default {
       hobbyList: [],
       hobbyFlag1: false,
       hobbyFlag2: false,
-      message: '',
+      message: "",
       allFlag: false
-    }
+    };
   },
   methods: {
-    goHome () {
-      this.$router.push('/home')
+    goHome() {
+      this.$router.push("/home");
     },
     calculation() {
       const obj = definition.selectCity({
         country: this.country
-      })
-      this.cityList = obj.cityList
-      this.city = obj.city
+      });
+      this.cityList = obj.cityList;
+      this.city = obj.city;
     },
     verification() {
       if (this.language.length > 3) {
-        this.languageFlag1 = true
-      } else if(this.language.length === 0) {
-        this.languageFlag2 = ture
+        this.languageFlag1 = true;
       } else {
-        this.languageFlag1 = false
-        this.languageFlag2 = false
+        this.languageFlag1 = false;
+      }
+      if (this.language.length === 0) {
+        this.languageFlag2 = true;
+      } else {
+        this.languageFlag2 = false;
       }
       if (this.hobby.length > 3) {
-        this.hobbyFlag1 = true
-      } else if(this.hobby.length === 0) {
-        this.hobbyFlag2 = ture
+        this.hobbyFlag1 = true;
       } else {
-        this.hobbyFlag1 = false
-        this.hobbyFlag2 = false
+        this.hobbyFlag1 = false;
       }
-      if (this.languageFlag1 === false && this.languageFlag2 === false && this.hobbyFlag1 === false && this.hobbyFlag2 === false) {
-        this.$store.commit('setBelongs', this.belongs);
-        this.$store.commit('setCountry', this.country);
-        this.$store.commit('setCity', this.city);
-        this.$store.commit('setLanguage', this.language);
-        this.$store.commit('setHobby', this.hobby);
-        this.$store.commit('setMessage', this.message);
-        this.$router.push('/verification')
+      if (this.hobby.length === 0) {
+        this.hobbyFlag2 = true;
+      } else {
+        this.hobbyFlag2 = false;
+      }
+      if (this.belongs === "" || this.country === "" || this.city === "") {
+        this.allFlag = true;
+      } else {
+        this.allFlag = false;
+      }
+      if (
+        this.languageFlag1 === false &&
+        this.languageFlag2 === false &&
+        this.hobbyFlag1 === false &&
+        this.hobbyFlag2 === false &&
+        this.allFlag === false
+      ) {
+        this.$store.commit("setBelongs", this.belongs);
+        this.$store.commit("setCountry", this.country);
+        this.$store.commit("setCity", this.city);
+        this.$store.commit("setLanguage", this.language);
+        this.$store.commit("setHobby", this.hobby);
+        this.$store.commit("setMessage", this.message);
+        this.$router.push("/verification");
       }
     }
   },
-  async mounted () {
-    this.username = this.$store.getters.getUserName
-    await this.$store.dispatch('signCheck')
-    console.log('signCheckが完了した')
-    await this.$store.dispatch('getUserList')
-    console.log('getUserListが完了した')
-    await this.$store.dispatch('getAllLists')
-    console.log('getAllListsが完了した')
-    this.languageList = this.$store.getters.getLanguageList
-    console.log('this.languageList')
-    console.log(this.languageList)
+  async mounted() {
+    this.username = this.$store.getters.getUserName;
+    await this.$store.dispatch("signCheck");
+    console.log("signCheckが完了した");
+    await this.$store.dispatch("getUserList");
+    console.log("getUserListが完了した");
+    await this.$store.dispatch("getAllLists");
+    console.log("getAllListsが完了した");
+    this.languageList = this.$store.getters.getLanguageList;
+    console.log("this.languageList");
+    console.log(this.languageList);
     for (let i = 0; i < 3; i++) {
-      const data = this.languageList[i]
-      this.language.push(data[1])
+      const data = this.languageList[i];
+      this.language.push(data[1]);
     }
-    console.log('this.language')
-    console.log(this.language)
-    this.hobbyList = this.$store.getters.getHobbyList
-    console.log(' this.hobbyList')
-    console.log(this.hobbyList)
+    console.log("this.language");
+    console.log(this.language);
+    this.hobbyList = this.$store.getters.getHobbyList;
+    console.log(" this.hobbyList");
+    console.log(this.hobbyList);
     for (let i = 0; i < 3; i++) {
-      const data = this.hobbyList[i]
-      this.hobby.push(data[1])
+      const data = this.hobbyList[i];
+      this.hobby.push(data[1]);
     }
-    console.log('this.hobby')
-    console.log(this.hobby)
-    console.log('mounted完了')
+    console.log("this.hobby");
+    console.log(this.hobby);
+    console.log("mounted完了");
   }
-}
-
+};
 </script>
 
 <style scoped>
@@ -197,7 +247,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 58px;
-  background-color: #AED3E6;
+  background-color: #aed3e6;
   padding-right: 40px;
   padding-left: 40px;
   opacity: 1;
@@ -218,6 +268,15 @@ export default {
 .ma-h2 {
   font-size: 24px;
   font-weight: bold;
+}
+
+.er-p {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 25px;
+  color: red;
+  border: 1px solid red;
+  background-color: #f2cece;
 }
 
 .ma-ul {
@@ -253,7 +312,7 @@ export default {
 }
 
 .ma-form::after {
-  content: '>';
+  content: ">";
   transform: rotate(90deg);
   display: block;
   font-size: 13px;
@@ -284,8 +343,8 @@ export default {
   width: 261px;
   font-weight: bold;
   border-radius: 50px;
-  background-color: #004BB1;
-  color: #FFFFFF;
+  background-color: #004bb1;
+  color: #ffffff;
   line-height: 53px;
 }
 
@@ -293,7 +352,7 @@ export default {
   width: 100%;
   height: 27px;
   line-height: 27px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 1px solid #707070;
   text-align: center;
   font-size: 12px;
@@ -316,7 +375,7 @@ export default {
   }
 
   .ma-li {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: left;
@@ -382,6 +441,5 @@ export default {
     height: 42px;
     line-height: 42px;
   }
-
 }
 </style>

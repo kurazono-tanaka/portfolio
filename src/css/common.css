@@ -1,0 +1,13 @@
+/* common.css*/
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
+
+#app {
+  height: 100%;
+}

@@ -7,7 +7,7 @@
       </section>
     </header>
     <main class="main">
-      <div  class="ma-content">
+      <div class="ma-content">
         <h2 class="ma-h2">同僚との共通点をみつけよう</h2>
         <p class="ma-p">
           プロジェクトメンバーともっと
@@ -16,8 +16,7 @@
           簡単に共通点を検索できるサービスです。
         </p>
         <p class="ma-p-768">
-          プロジェクトメンバーともっと
-          親交を深めたいけど、話すきっかけがない。
+          プロジェクトメンバーともっと 親交を深めたいけど、話すきっかけがない。
           そんなとき、簡単に共通点を検索できるサービスです。
         </p>
         <p class="ma-btn-p">まずは自身の情報を登録しましょう。</p>
@@ -25,76 +24,61 @@
         <p class="ma-btn-p">共通点を検索してみましょう。</p>
         <button class="ma-btn" @click="goSearch">検索へ</button>
       </div>
-      <img src="../../img/portfolio.png" class="ma-img">
+      <img src="../../img/portfolio.png" class="ma-img" />
     </main>
     <footer class="footer">
-      <p>Copyright ©2019 ○○Inc. All rights reserved</p>
+      <p>©2021 KurazonoAzusa</p>
     </footer>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import router from '@/router'
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
-  name: 'home',
-  data () {
+  name: "home",
+  data() {
     return {
-      username: '',
+      username: "",
       wallet: 0,
-      userId: '',
-      modalName: '',
+      userId: "",
+      modalName: "",
       modalWallet: 0,
       userList: [],
       showModal: false,
       showSendModal: false,
       sendingMoney: 0,
-      destinationId: ''
-    }
+      destinationId: ""
+    };
   },
   methods: {
-    signOut () {
-      this.$store.dispatch('signOut')
+    signOut() {
+      this.$store.dispatch("signOut");
     },
-    goRegister () {
-      this.$router.push('/register')
+    goRegister() {
+      this.$router.push("/register");
     },
-    goSearch () {
-      this.$router.push('/search')
+    goSearch() {
+      this.$router.push("/search");
     }
   },
-  mounted () {
-    this.username = this.$store.getters.getUserName     
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user && user.emailVerified) {
-        console.log('user.emailVerified')
-        console.log(user.emailVerified)
-        console.log('login')
-        console.log('メール認証済み')
-        if(this.username === '') {
-          //メールリンクから遷移した場合
-          console.log('メールリンクから遷移した場合')
-          this.$store.commit('setUserName', user.displayName);
-        }
-      } else if(user && !user.emailVerified) {
-        console.log('user.emailVerified')
-        console.log(user.emailVerified)
-        console.log('logout')
-        console.log('メール認証未実施')
-        router.push('/signin')
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("user");
+        console.log(user);
+        console.log("login");
       } else {
         //ログアウトのリロード時
-        console.log('user')
-        console.log(user)
-        console.log('ログアウトのリロード時')
-        console.log('logout')
+        console.log("user");
+        console.log(user);
+        console.log("ログアウトのリロード時");
+        console.log("logout");
       }
-    })
+    });
   }
-}
-
+};
 </script>
 
 <style scoped>
@@ -115,7 +99,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 58px;
-  background-color: #AED3E6;
+  background-color: #aed3e6;
   padding-right: 40px;
   padding-left: 40px;
   opacity: 1;
@@ -160,8 +144,8 @@ export default {
   width: 261px;
   font-weight: bold;
   border-radius: 50px;
-  background-color: #004BB1;
-  color: #FFFFFF;
+  background-color: #004bb1;
+  color: #ffffff;
   line-height: 53px;
 }
 
@@ -176,7 +160,7 @@ export default {
   width: 100%;
   height: 27px;
   line-height: 27px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 1px solid #707070;
   text-align: center;
   font-size: 12px;
@@ -223,7 +207,7 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding:  79px 134px 111px 134px;
+    padding: 79px 134px 111px 134px;
   }
 
   .ma-h2 {
