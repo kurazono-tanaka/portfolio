@@ -4,7 +4,6 @@
       <transition name="he-menu-tra">
         <section class="he-menu" v-if="showModal === false">
           <h1 class="font-menu-h1">PortfolioTop</h1>
-          <!-- pc幅用 -->
           <nav class="he-menu-list">
             <ul class="he-menu-list-ul">
               <li>
@@ -124,7 +123,7 @@
           共通点検索サービス
         </h2>
         <img src="../../img/portfolio.png" class="ma-service-img" />
-        <button @click="goSignup" class="ma-service-button button-style">
+        <button @click="goSignup" class="button-style">
           共通点検索サービスへ
         </button>
       </article>
@@ -407,11 +406,12 @@ export default {
   border: 2px solid #cdd6dd;
   color: #004bb1;
   line-height: 53px;
-}
-
-.ma-service-button {
   margin-top: 40px;
   margin-bottom: 150px;
+}
+
+.button-style:hover {
+  opacity: 0.8;
 }
 
 .footer {

@@ -149,6 +149,10 @@ export default {
   line-height: 53px;
 }
 
+.ma-btn:hover {
+  opacity: 0.8;
+}
+
 .ma-img {
   display: block;
   width: 282px;

@@ -184,8 +184,6 @@ export default {
 }
 
 .ma-btn {
-  /* margin-top: 12px;
-  margin-bottom: 55px; */
   height: 53px;
   width: 261px;
   font-weight: bold;
@@ -193,6 +191,10 @@ export default {
   background-color: #004bb1;
   color: #ffffff;
   line-height: 53px;
+}
+
+.ma-btn:hover {
+  opacity: 0.8;
 }
 
 .footer {

@@ -7,6 +7,11 @@
         <button @click="goTop" class="he-btn-768px">PortfolioTOPへ</button>
       </section>
     </header>
+    <div class="error">
+      <p v-if="registerErrorMsg" class="er-p">
+        {{registerErrorMsg}}
+      </p>
+    </div>
     <main class="main">
       <div class="ma-title">
         <h2 class="ma-h2">新規登録画面</h2>
@@ -62,16 +67,21 @@ export default {
     return {
       username: "",
       mailaddress: "",
-      password: ""
+      password: "",
+      registerErrorMsg:""
     };
   },
   methods: {
-    signUp() {
-      this.$store.dispatch("signUp", {
+    async signUp() {
+      await this.$store.dispatch("signUp", {
         username: this.username,
         mailaddress: this.mailaddress,
         password: this.password
       });
+      console.log('signUpが失敗して戻ってきた。');
+      this.registerErrorMsg = this.$store.getters.getRegisterErrorMsg;
+      console.log('this.registerErrorMsg ')
+      console.log(this.registerErrorMsg )
     },
     goTop() {
       this.$router.push("/");
@@ -125,6 +135,15 @@ export default {
   font-weight: bold;
 }
 
+.er-p {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 25px;
+  color: red;
+  border: 1px solid red;
+  background-color: #f2cece;
+}
+
 .ma-p {
   font-size: 12px;
   margin-top: 8px;
@@ -168,6 +187,10 @@ export default {
   background-color: #004bb1;
   color: #ffffff;
   line-height: 53px;
+}
+
+.ma-btn-signUp:hover {
+  opacity: 0.8;
 }
 
 .ma-link {

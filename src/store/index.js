@@ -23,7 +23,8 @@ const state = {
   message: "",
   matchUserList: [],
   userNameList: [],
-  detailUser: []
+  detailUser: [],
+  registerErrorMsg: ""
 };
 
 const mutations = {
@@ -78,29 +79,10 @@ const mutations = {
   },
   setDetailUser(state, detailUser) {
     state.detailUser = detailUser;
+  },
+  setRegisterErrorMsg(state, registerErrorMsg) {
+    state.registerErrorMsg = registerErrorMsg;
   }
-  //詳細結果対象
-  // setDetailUserName (state, detailUsername) {
-  //   state.detailUsername = detailUsername
-  // },
-  // setDetailBelongs (state, detailBelongs) {
-  //   state.detailBelongs = detailBelongs
-  // },
-  // setDetailCountry (state, detailCountry) {
-  //   state.detailCountry = detailCountry
-  // },
-  // setDetailCity (state, detailCity) {
-  //   state.detailCity = detailCity
-  // },
-  // setDetailLanguage (state, detailLanguage) {
-  //   state.detailLanguage = detailLanguage
-  // },
-  // setDetailHobby (state, detailHobby) {
-  //   state.detailHobby = detailHobby
-  // },
-  // setDetailMessage (state, detailMessage) {
-  //   state.detailMessage = detailMessage
-  // }
 };
 
 const getters = {
@@ -142,12 +124,15 @@ const getters = {
   },
   getDetailUser: state => {
     return state.detailUser;
+  },
+  getRegisterErrorMsg: state => {
+    return state.registerErrorMsg;
   }
 };
 
 const actions = {
-  signUp({ commit }, { username, mailaddress, password }) {
-    firebase
+  async signUp({ commit }, { username, mailaddress, password }) {
+    await firebase
       .auth()
       .createUserWithEmailAndPassword(mailaddress, password)
       .then(response => {
@@ -185,6 +170,26 @@ const actions = {
       })
       .catch(error => {
         console.log(`createUserWithEmailAndPasswordでエラー発生：${error}`);
+        if (error.code === "auth/email-already-in-use") {
+          commit(
+            "setRegisterErrorMsg",
+            "このメールアドレスは既に登録されています。"
+          );
+        } else if (error.code === "auth/invalid-email") {
+          commit("setRegisterErrorMsg", "無効なメールアドレスです。");
+        } else if (error.code === "auth/operation-not-allowed") {
+          commit(
+            "setRegisterErrorMsg",
+            "電子メール/パスワードアカウントが有効になっていません。"
+          );
+        } else if (error.code === "auth/weak-password") {
+          commit(
+            "setRegisterErrorMsg",
+            "パスワードは6文字以上にしてください。"
+          );
+        } else {
+          commit("setRegisterErrorMsg", "エラーにより登録できませんでした。");
+        }
       });
   },
   signIn({ commit }, { mailaddress, password }) {

@@ -181,6 +181,10 @@ export default {
   margin-top: 50px;
 }
 
+.ma-btn:hover {
+  opacity: 0.8;
+}
+
 .footer {
   width: 100%;
   height: 27px;

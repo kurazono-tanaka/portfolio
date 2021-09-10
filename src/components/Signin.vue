@@ -152,6 +152,10 @@ export default {
   line-height: 53px;
 }
 
+.ma-btn-signIn:hover {
+  opacity: 0.8;
+}
+
 .ma-link {
   display: block;
   margin-top: 50px;
