@@ -263,6 +263,30 @@ const actions = {
       }
     });
   },
+  async getUserList({ commit }) {
+    await firebase
+      .firestore()
+      .collection("users")
+      .get()
+      .then(query => {
+        console.log("ユーザリストの参照に成功しました");
+        const buff = [];
+        query.forEach(doc => {
+          const data = doc.data();
+          buff.push([doc.id, data.name, data.email, data.password]);
+        });
+        const createUserArray = buff.filter(
+          doc => doc[2] === state.mailaddress
+        );
+        const createUser = createUserArray[0];
+        commit("setUserId", createUser[0]);
+        console.log("state.userId");
+        console.log(state.userId);
+      })
+      .catch(error => {
+        console.log(`エラー発生：${error}`);
+      });
+  },
   async getAllLists({ commit }) {
     await firebase
       .firestore()

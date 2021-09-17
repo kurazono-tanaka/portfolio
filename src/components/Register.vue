@@ -210,6 +210,8 @@ export default {
     this.username = this.$store.getters.getUserName;
     await this.$store.dispatch("signCheck");
     console.log("signCheckが完了した");
+    await this.$store.dispatch("getUserList");
+    console.log("getUserListが完了した");
     await this.$store.dispatch("getAllLists");
     console.log("getAllListsが完了した");
     this.allListsErrorMsg1 = this.$store.getters.getAllListsErrorMsg1;

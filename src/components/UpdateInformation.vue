@@ -8,7 +8,10 @@
     </header>
     <main class="main">
       <h2 class="ma-h2">ユーザ情報登録完了</h2>
-      <p class="ma-p">{{ username }}様の ユーザ情報登録が完了しました。</p>
+      <p class="ma-p">
+        {{ username }}様の
+        ユーザ情報登録が完了しました。
+      </p>
       <button class="ma-btn" @click="goHome">ホーム画面へ</button>
     </main>
     <footer class="footer">
