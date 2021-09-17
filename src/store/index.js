@@ -176,7 +176,6 @@ const actions = {
                 router.push("/home");
               })
               .catch(error => {
-                console.log(`currentUser.updateProfileでエラー発生：${error}`);
                 commit(
                   "setErrorMsg",
                   `currentUser.updateProfileでエラー発生：${error}`
@@ -184,7 +183,6 @@ const actions = {
               });
           })
           .catch(error => {
-            console.log(`collectionでエラー発生：${error}`);
             commit("setErrorMsg", `collectionでエラー発生：${error}`);
           });
       })
