@@ -150,9 +150,9 @@ const actions = {
     await firebase
       .auth()
       .createUserWithEmailAndPassword(mailaddress, password)
-      .then(response => {
+      .then(async response => {
         const user = response.user;
-        firebase
+        await firebase
           .firestore()
           .collection("users")
           .add({
@@ -160,9 +160,9 @@ const actions = {
             email: user.email,
             password: password
           })
-          .then(doc => {
+          .then(async doc => {
             console.log(`DB追加に成功しました`);
-            firebase
+            await firebase
               .auth()
               .currentUser.updateProfile({
                 displayName: username
@@ -176,6 +176,7 @@ const actions = {
                 router.push("/home");
               })
               .catch(error => {
+                console.log(`currentUser.updateProfileでエラー発生：${error}`);
                 commit(
                   "setErrorMsg",
                   `currentUser.updateProfileでエラー発生：${error}`
@@ -183,6 +184,7 @@ const actions = {
               });
           })
           .catch(error => {
+            console.log(`collectionでエラー発生：${error}`);
             commit("setErrorMsg", `collectionでエラー発生：${error}`);
           });
       })
