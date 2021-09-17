@@ -6,6 +6,11 @@
         <button class="he-btn" @click="goHome">ホーム画面へ</button>
       </section>
     </header>
+    <div class="error">
+      <p v-if="errorMsg" class="er-p">
+        {{errorMsg}}
+      </p>
+    </div>
     <main class="main">
       <h2 class="ma-h2">ユーザ情報登録確認</h2>
       <ul class="ma-ul">
@@ -66,7 +71,8 @@ export default {
       city: "",
       language: [],
       hobby: [],
-      message: ""
+      message: "",
+      errorMsg: ""
     };
   },
   methods: {
@@ -85,6 +91,7 @@ export default {
         hobby: this.hobby,
         message: this.message
       });
+      this.errorMsg = this.$store.getters.getErrorMsg;
     }
   },
   mounted() {
@@ -139,6 +146,15 @@ export default {
 .ma-h2 {
   font-size: 24px;
   font-weight: bold;
+}
+
+.er-p {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 25px;
+  color: red;
+  border: 1px solid red;
+  background-color: #f2cece;
 }
 
 .ma-ul {

@@ -6,6 +6,11 @@
         <button class="he-btn" @click="signOut">ログアウト</button>
       </section>
     </header>
+    <div class="error">
+      <p v-if="errorMsg" class="er-p">
+        {{errorMsg}}
+      </p>
+    </div>
     <main class="main">
       <div class="ma-content">
         <h2 class="ma-h2">同僚との共通点をみつけよう</h2>
@@ -49,12 +54,14 @@ export default {
       showModal: false,
       showSendModal: false,
       sendingMoney: 0,
-      destinationId: ""
+      destinationId: "",
+      errorMsg: ""
     };
   },
   methods: {
-    signOut() {
-      this.$store.dispatch("signOut");
+    async signOut() {
+      await this.$store.dispatch("signOut");
+      this.errorMsg = this.$store.getters.getErrorMsg;
     },
     goRegister() {
       this.$router.push("/register");
@@ -120,6 +127,15 @@ export default {
 .ma-h2 {
   font-size: 24px;
   font-weight: bold;
+}
+
+.er-p {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 25px;
+  color: red;
+  border: 1px solid red;
+  background-color: #f2cece;
 }
 
 .ma-p {

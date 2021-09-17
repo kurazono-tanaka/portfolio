@@ -7,6 +7,11 @@
         <button @click="goTop" class="he-btn-768px">PortfolioTOPへ</button>
       </section>
     </header>
+    <div class="error">
+      <p v-if="errorMsg" class="er-p">
+        {{errorMsg}}
+      </p>
+    </div>
     <main class="main">
       <div class="ma-title">
         <h1 class="ma-h2">ログイン画面</h1>
@@ -50,15 +55,20 @@ export default {
   data() {
     return {
       mailaddress: "",
-      password: ""
+      password: "",
+      errorMsg:""
     };
   },
   methods: {
-    signIn() {
-      this.$store.dispatch("signIn", {
+    async signIn() {
+     await this.$store.dispatch("signIn", {
         mailaddress: this.mailaddress,
         password: this.password
       });
+      console.log('signInが失敗して戻ってきた。');
+      this.errorMsg = this.$store.getters.getErrorMsg;
+      console.log('this.errorMsg ')
+      console.log(this.errorMsg)
     },
     goTop() {
       this.$router.push("/");
@@ -110,6 +120,15 @@ export default {
 .ma-h2 {
   font-size: 24px;
   font-weight: bold;
+}
+
+.er-p {
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 25px;
+  color: red;
+  border: 1px solid red;
+  background-color: #f2cece;
 }
 
 .ma-title {

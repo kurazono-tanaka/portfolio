@@ -22,6 +22,18 @@
       <p v-if="hobbyFlag2" class="er-p">
         趣味が選択されていません。選択し直してください。
       </p>
+      <p v-if="errorMsg" class="er-p">
+        {{errorMsg}}
+      </p>
+      <p v-if="allListsErrorMsg1" class="er-p">
+        {{allListsErrorMsg1}}
+      </p>
+      <p v-if="allListsErrorMsg2" class="er-p">
+        {{allListsErrorMsg2}}
+      </p>
+      <p v-if="usersErrorMsg" class="er-p">
+        {{usersErrorMsg}}
+      </p>
     </div>
     <main class="main">
       <h2 class="ma-h2">ユーザ情報検索</h2>
@@ -140,7 +152,11 @@ export default {
       hobbyFlag1: false,
       hobbyFlag2: false,
       message: "",
-      allFlag: false
+      allFlag: false,
+      errorMsg: "",
+      allListsErrorMsg1: "",
+      allListsErrorMsg2: "",
+      usersErrorMsg: ""
     };
   },
   methods: {
@@ -199,6 +215,7 @@ export default {
           language: this.language,
           hobby: this.hobby
         });
+        this.usersErrorMsg = this.$store.getters.getUsersErrorMsg;
       }
     }
   },
@@ -206,12 +223,15 @@ export default {
     await this.$store.dispatch("signCheck");
     console.log("signCheckが完了した");
     await this.$store.dispatch("getUserNameLists");
+    this.errorMsg = this.$store.getters.getErrorMsg;
     console.log("getUserNameListsが完了した");
     this.userNameList = this.$store.getters.getUserNameList;
     console.log("this.userNameList");
     console.log(this.userNameList);
     await this.$store.dispatch("getAllLists");
     console.log("getAllListsが完了した");
+    this.allListsErrorMsg1 = this.$store.getters.getAllListsErrorMsg1;
+    this.allListsErrorMsg2 = this.$store.getters.getAllListsErrorMsg2;
     this.languageList = this.$store.getters.getLanguageList;
     console.log("this.languageList");
     console.log(this.languageList);

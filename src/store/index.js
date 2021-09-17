@@ -24,7 +24,10 @@ const state = {
   matchUserList: [],
   userNameList: [],
   detailUser: [],
-  registerErrorMsg: ""
+  errorMsg: "",
+  allListsErrorMsg1: "",
+  allListsErrorMsg2: "",
+  usersErrorMsg: ""
 };
 
 const mutations = {
@@ -41,9 +44,6 @@ const mutations = {
   },
   setUserId(state, userId) {
     state.userId = userId;
-  },
-  setUserList(state, userList) {
-    state.userList = userList;
   },
   setLanguageList(state, languageList) {
     state.languageList = languageList;
@@ -80,17 +80,23 @@ const mutations = {
   setDetailUser(state, detailUser) {
     state.detailUser = detailUser;
   },
-  setRegisterErrorMsg(state, registerErrorMsg) {
-    state.registerErrorMsg = registerErrorMsg;
-  }
+  setErrorMsg(state, errorMsg) {
+    state.errorMsg = errorMsg;
+  },
+  setAllListsErrorMsg1(state, allListsErrorMsg1 ) {
+    state.allListsErrorMsg1 = allListsErrorMsg1;
+  },
+  setAllListsErrorMsg2(state, allListsErrorMsg2 ) {
+    state.allListsErrorMsg2 = allListsErrorMsg2;
+  },
+  setUsersErrorMsg(state, usersErrorMsg ) {
+    state.usersErrorMsg = usersErrorMsg;
+  },
 };
 
 const getters = {
   getUserName: state => {
     return state.username;
-  },
-  getUserList: state => {
-    return state.userList;
   },
   getLanguageList: state => {
     return state.languageList;
@@ -125,9 +131,18 @@ const getters = {
   getDetailUser: state => {
     return state.detailUser;
   },
-  getRegisterErrorMsg: state => {
-    return state.registerErrorMsg;
-  }
+  getErrorMsg: state => {
+    return state.errorMsg;
+  },
+  getAllListsErrorMsg1: state => {
+    return state.allListsErrorMsg1;
+  },
+  getAllListsErrorMsg2: state => {
+    return state.allListsErrorMsg2;
+  },
+  getUsersErrorMsg: state => {
+    return state.usersErrorMsg;
+  },
 };
 
 const actions = {
@@ -161,39 +176,38 @@ const actions = {
                 router.push("/home");
               })
               .catch(error => {
-                console.log(`currentUser.updateProfileでエラー発生：${error}`);
+                commit(
+                  "setErrorMsg",
+                  `currentUser.updateProfileでエラー発生：${error}`
+                );
               });
           })
           .catch(error => {
-            console.log(`collectionでエラー発生：${error}`);
+            commit("setErrorMsg", `collectionでエラー発生：${error}`);
           });
       })
       .catch(error => {
-        console.log(`createUserWithEmailAndPasswordでエラー発生：${error}`);
         if (error.code === "auth/email-already-in-use") {
-          commit(
-            "setRegisterErrorMsg",
-            "このメールアドレスは既に登録されています。"
-          );
+          commit("setErrorMsg", "このメールアドレスは既に登録されています。");
         } else if (error.code === "auth/invalid-email") {
-          commit("setRegisterErrorMsg", "無効なメールアドレスです。");
+          commit("setErrorMsg", "無効なメールアドレスです。");
         } else if (error.code === "auth/operation-not-allowed") {
           commit(
-            "setRegisterErrorMsg",
+            "setErrorMsg",
             "電子メール/パスワードアカウントが有効になっていません。"
           );
         } else if (error.code === "auth/weak-password") {
-          commit(
-            "setRegisterErrorMsg",
-            "パスワードは6文字以上にしてください。"
-          );
+          commit("setErrorMsg", "パスワードは6文字以上にしてください。");
         } else {
-          commit("setRegisterErrorMsg", "エラーにより登録できませんでした。");
+          commit(
+            "setErrorMsg",
+            `createUserWithEmailAndPasswordでエラー発生：${error}`
+          );
         }
       });
   },
-  signIn({ commit }, { mailaddress, password }) {
-    firebase
+  async signIn({ commit }, { mailaddress, password }) {
+    await firebase
       .auth()
       .signInWithEmailAndPassword(mailaddress, password)
       .then(user => {
@@ -205,11 +219,27 @@ const actions = {
         router.push("/home");
       })
       .catch(error => {
-        console.log(`エラー発生：${error}`);
+        if (error.code === "auth/invalid-email") {
+          commit("setErrorMsg", "無効なメールアドレスです。");
+        } else if (error.code === "auth/user-disabled") {
+          commit("setErrorMsg", "指定された電子メールに対応するユーザーが無効になっています。");
+        } else if (error.code === "auth/user-not-found") {
+          commit(
+            "setErrorMsg",
+            "指定された電子メールに対応するユーザーがいません。"
+          );
+        } else if (error.code === "auth/wrong-password") {
+          commit("setErrorMsg", "入力したパスワードが、登録したものと異なります。");
+        } else {
+          commit(
+            "setErrorMsg",
+            `signInWithEmailAndPasswordでエラー発生：${error}`
+          );
+        }
       });
   },
-  signOut({ commit }) {
-    firebase
+  async signOut({ commit }) {
+    await firebase
       .auth()
       .signOut()
       .then(() => {
@@ -219,7 +249,7 @@ const actions = {
         commit("setPassword", "");
       })
       .catch(error => {
-        console.log(`エラー発生：${error}`);
+        commit("setErrorMsg", `エラー発生：${error}`);
       });
   },
   signCheck({ commit }) {
@@ -230,30 +260,6 @@ const actions = {
         console.log("logout");
       }
     });
-  },
-  async getUserList({ commit }) {
-    await firebase
-      .firestore()
-      .collection("users")
-      .get()
-      .then(query => {
-        console.log("ユーザリストの参照に成功しました");
-        const buff = [];
-        query.forEach(doc => {
-          const data = doc.data();
-          buff.push([doc.id, data.name, data.email, data.password]);
-        });
-        const createUserArray = buff.filter(
-          doc => doc[2] === state.mailaddress
-        );
-        const createUser = createUserArray[0];
-        commit("setUserId", createUser[0]);
-        console.log("state.userId");
-        console.log(state.userId);
-      })
-      .catch(error => {
-        console.log(`エラー発生：${error}`);
-      });
   },
   async getAllLists({ commit }) {
     await firebase
@@ -274,7 +280,7 @@ const actions = {
         console.log(state.languageList);
       })
       .catch(error => {
-        console.log(`エラー発生：${error}`);
+        commit("setAllListsErrorMsg1", `collection("development_languages").getでエラー発生：${error}`);
       });
     await firebase
       .firestore()
@@ -294,14 +300,13 @@ const actions = {
         console.log(state.hobbyList);
       })
       .catch(error => {
-        console.log(`エラー発生：${error}`);
+        commit("setAllListsErrorMsg2", `collection("hobbies").getでエラー発生：${error}`);
       });
   },
   async updateInformation(
     { commit },
     { belongs, country, city, language, hobby, message }
   ) {
-    // DBの金額更新
     console.log("これからupdateInformation実施");
     const userDoc = firebase
       .firestore()
@@ -321,7 +326,7 @@ const actions = {
         router.push("/updateInformation");
       })
       .catch(error => {
-        console.log(`エラー発生：${error}`);
+        commit("setErrorMsg", `エラー発生：${error}`);
       });
   },
   async getUserNameLists({ commit }) {
@@ -343,7 +348,7 @@ const actions = {
         console.log(state.userNameList);
       })
       .catch(error => {
-        console.log(`エラー発生：${error}`);
+        commit("setErrorMsg", `エラー発生：${error}`);
       });
   },
   async getUsers(
@@ -444,7 +449,7 @@ const actions = {
         router.push("/result");
       })
       .catch(error => {
-        console.log(`エラー発生：${error}`);
+        commit("setUsersErrorMsg", `エラー発生：${error}`);
       });
   }
 };

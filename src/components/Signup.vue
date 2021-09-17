@@ -8,8 +8,8 @@
       </section>
     </header>
     <div class="error">
-      <p v-if="registerErrorMsg" class="er-p">
-        {{registerErrorMsg}}
+      <p v-if="errorMsg" class="er-p">
+        {{errorMsg}}
       </p>
     </div>
     <main class="main">
@@ -68,7 +68,7 @@ export default {
       username: "",
       mailaddress: "",
       password: "",
-      registerErrorMsg:""
+      errorMsg:""
     };
   },
   methods: {
@@ -79,9 +79,9 @@ export default {
         password: this.password
       });
       console.log('signUpが失敗して戻ってきた。');
-      this.registerErrorMsg = this.$store.getters.getRegisterErrorMsg;
-      console.log('this.registerErrorMsg ')
-      console.log(this.registerErrorMsg )
+      this.errorMsg = this.$store.getters.getErrorMsg;
+      console.log('this.errorMsg ')
+      console.log(this.errorMsg)
     },
     goTop() {
       this.$router.push("/");
