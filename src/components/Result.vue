@@ -92,17 +92,8 @@ export default {
       this.$router.push("/home");
     },
     detail(email) {
-      console.log("detailの引数email");
-      console.log(email);
       const detailUserList = this.matchUserList.filter(doc => doc[1] === email);
-      if (detailUserList.length === 1) {
-        console.log("emailは一意");
-      } else {
-        console.log("エラー：emailが一意でない");
-      }
       const detailUser = detailUserList[0];
-      console.log("detailUserの中身");
-      console.log(detailUser);
       this.$store.commit("setDetailUser", detailUser);
       this.$router.push("/detail");
     },
@@ -119,7 +110,6 @@ export default {
     this.city = this.$store.getters.getCity;
     this.language = this.$store.getters.getLanguage;
     this.hobby = this.$store.getters.getHobby;
-    console.log("検索結果画面のmounted完了");
   }
 };
 </script>

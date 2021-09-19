@@ -82,7 +82,6 @@ export default {
     this.language = this.detailUser[5]
     this.hobby = this.detailUser[6]
     this.message = this.detailUser[7]
-    console.log('検索結果(詳細)画面のmounted完了')
   }
 }
 </script>

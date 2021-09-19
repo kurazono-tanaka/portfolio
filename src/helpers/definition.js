@@ -29,10 +29,6 @@ const selectCity = ({ country }) => {
       _city = "その他";
       break;
   }
-  console.log("_cityListの中身");
-  console.log(_cityList);
-  console.log("_cityの中身");
-  console.log(_city);
   return {
     cityList: _cityList,
     city: _city

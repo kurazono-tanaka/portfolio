@@ -65,14 +65,15 @@ export default {
         mailaddress: this.mailaddress,
         password: this.password
       });
-      console.log('signInが失敗して戻ってきた。');
       this.errorMsg = this.$store.getters.getErrorMsg;
-      console.log('this.errorMsg ')
-      console.log(this.errorMsg)
     },
     goTop() {
       this.$router.push("/");
     }
+  },
+  mounted() {
+    //エラーメッセージの初期化
+    this.$store.commit('setErrorMsg', this.errorMsg);
   }
 };
 </script>

@@ -43,6 +43,7 @@ export default {
   },
   mounted() {
     this.username = this.$store.getters.getUserName;
+    this.$store.commit('setRegisterFlg', true);
   }
 };
 </script>

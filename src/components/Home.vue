@@ -10,6 +10,9 @@
       <p v-if="errorMsg" class="er-p">
         {{errorMsg}}
       </p>
+      <p v-if="errorRegisterFlg" class="er-p">
+        登録が完了していません。登録が完了してから検索を実施してください。
+      </p>
     </div>
     <main class="main">
       <div class="ma-content">
@@ -38,7 +41,6 @@
 </template>
 
 <script>
-import firebase from "firebase/app";
 import "firebase/auth";
 
 export default {
@@ -55,7 +57,8 @@ export default {
       showSendModal: false,
       sendingMoney: 0,
       destinationId: "",
-      errorMsg: ""
+      errorMsg: "",
+      errorRegisterFlg: false
     };
   },
   methods: {
@@ -67,23 +70,17 @@ export default {
       this.$router.push("/register");
     },
     goSearch() {
-      this.$router.push("/search");
+      const registerFlg = this.$store.getters.getRegisterFlg;
+      if (registerFlg) {
+        this.$router.push("/search");
+      } else {
+        this.errorRegisterFlg = true;
+      }
     }
   },
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("user");
-        console.log(user);
-        console.log("login");
-      } else {
-        //ログアウトのリロード時
-        console.log("user");
-        console.log(user);
-        console.log("ログアウトのリロード時");
-        console.log("logout");
-      }
-    });
+    //エラーメッセージの初期化
+    this.errorMsg = "";
   }
 };
 </script>

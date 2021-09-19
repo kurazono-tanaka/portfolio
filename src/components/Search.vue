@@ -25,15 +25,6 @@
       <p v-if="errorMsg" class="er-p">
         {{errorMsg}}
       </p>
-      <p v-if="allListsErrorMsg1" class="er-p">
-        {{allListsErrorMsg1}}
-      </p>
-      <p v-if="allListsErrorMsg2" class="er-p">
-        {{allListsErrorMsg2}}
-      </p>
-      <p v-if="usersErrorMsg" class="er-p">
-        {{usersErrorMsg}}
-      </p>
     </div>
     <main class="main">
       <h2 class="ma-h2">ユーザ情報検索</h2>
@@ -153,10 +144,7 @@ export default {
       hobbyFlag2: false,
       message: "",
       allFlag: false,
-      errorMsg: "",
-      allListsErrorMsg1: "",
-      allListsErrorMsg2: "",
-      usersErrorMsg: ""
+      errorMsg: ""
     };
   },
   methods: {
@@ -215,42 +203,27 @@ export default {
           language: this.language,
           hobby: this.hobby
         });
-        this.usersErrorMsg = this.$store.getters.getUsersErrorMsg;
+        this.errorMsg = this.$store.getters.getErrorMsg;
       }
     }
   },
   async mounted() {
-    await this.$store.dispatch("signCheck");
-    console.log("signCheckが完了した");
+    //エラーメッセージの初期化
+    this.$store.commit('setErrorMsg', this.errorMsg);
     await this.$store.dispatch("getUserNameLists");
     this.errorMsg = this.$store.getters.getErrorMsg;
-    console.log("getUserNameListsが完了した");
     this.userNameList = this.$store.getters.getUserNameList;
-    console.log("this.userNameList");
-    console.log(this.userNameList);
     await this.$store.dispatch("getAllLists");
-    console.log("getAllListsが完了した");
-    this.allListsErrorMsg1 = this.$store.getters.getAllListsErrorMsg1;
-    this.allListsErrorMsg2 = this.$store.getters.getAllListsErrorMsg2;
     this.languageList = this.$store.getters.getLanguageList;
-    console.log("this.languageList");
-    console.log(this.languageList);
     for (let i = 0; i < 3; i++) {
       const data = this.languageList[i];
       this.language.push(data[1]);
     }
-    console.log("this.language");
-    console.log(this.language);
     this.hobbyList = this.$store.getters.getHobbyList;
-    console.log(" this.hobbyList");
-    console.log(this.hobbyList);
     for (let i = 0; i < 3; i++) {
       const data = this.hobbyList[i];
       this.hobby.push(data[1]);
     }
-    console.log("this.hobby");
-    console.log(this.hobby);
-    console.log("mounted完了");
   }
 };
 </script>

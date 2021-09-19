@@ -95,6 +95,8 @@ export default {
     }
   },
   mounted() {
+    //エラーメッセージの初期化
+    this.$store.commit('setErrorMsg', this.errorMsg);
     this.username = this.$store.getters.getUserName;
     this.belongs = this.$store.getters.getBelongs;
     this.country = this.$store.getters.getCountry;
@@ -102,7 +104,6 @@ export default {
     this.language = this.$store.getters.getLanguage;
     this.hobby = this.$store.getters.getHobby;
     this.message = this.$store.getters.getMessage;
-    console.log("ユーザ情報登録確認のmounted完了");
   }
 };
 </script>

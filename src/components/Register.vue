@@ -22,11 +22,8 @@
       <p v-if="hobbyFlag2" class="er-p">
         趣味が選択されていません。選択し直してください。
       </p>
-      <p v-if="allListsErrorMsg1" class="er-p">
-        {{allListsErrorMsg1}}
-      </p>
-      <p v-if="allListsErrorMsg2" class="er-p">
-        {{allListsErrorMsg2}}
+      <p v-if="errorMsg" class="er-p">
+        {{errorMsg}}
       </p>
     </div>
     <main class="main">
@@ -148,8 +145,7 @@ export default {
       hobbyFlag2: false,
       message: "",
       allFlag: false,
-      allListsErrorMsg1: "",
-      allListsErrorMsg2: "",
+      errorMsg: ""
     };
   },
   methods: {
@@ -207,34 +203,22 @@ export default {
     }
   },
   async mounted() {
+    //エラーメッセージの初期化
+    this.$store.commit('setErrorMsg', this.errorMsg);
     this.username = this.$store.getters.getUserName;
-    await this.$store.dispatch("signCheck");
-    console.log("signCheckが完了した");
     await this.$store.dispatch("getUserList");
-    console.log("getUserListが完了した");
     await this.$store.dispatch("getAllLists");
-    console.log("getAllListsが完了した");
-    this.allListsErrorMsg1 = this.$store.getters.getAllListsErrorMsg1;
-    this.allListsErrorMsg2 = this.$store.getters.getAllListsErrorMsg2;
+    this.errorMsg = this.$store.getters.getErrorMsg;
     this.languageList = this.$store.getters.getLanguageList;
-    console.log("this.languageList");
-    console.log(this.languageList);
     for (let i = 0; i < 3; i++) {
       const data = this.languageList[i];
       this.language.push(data[1]);
     }
-    console.log("this.language");
-    console.log(this.language);
     this.hobbyList = this.$store.getters.getHobbyList;
-    console.log(" this.hobbyList");
-    console.log(this.hobbyList);
     for (let i = 0; i < 3; i++) {
       const data = this.hobbyList[i];
       this.hobby.push(data[1]);
     }
-    console.log("this.hobby");
-    console.log(this.hobby);
-    console.log("mounted完了");
   }
 };
 </script>
